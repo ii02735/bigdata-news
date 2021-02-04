@@ -9,8 +9,9 @@ services:
     volumes:
        - ./news:/home/jovyan/work
     environment:
-       - "SPARK_LOCAL_IP=spark-master"
-
+       - SPARK_LOCAL_IP=spark-master
+       - PYSPARK_PYTHON=/usr/bin/python3
+    
   spark-worker:
     image: bde2020/spark-worker:3.0.1-hadoop3.2
 
@@ -35,3 +36,13 @@ services:
     environment:
       - PYSPARK_PYTHON=/usr/bin/python3
       - PYSPARK_DRIVER_PYTHON=ipython3
+
+  mongo:
+    image: mongo
+    container_name: news_mongo
+    volumes:
+      - mongo_data:/data/db
+
+
+volumes:
+  mongo_data:
