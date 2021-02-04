@@ -1,1 +1,3 @@
 currentsapi
+python-dotenv
+pyspark

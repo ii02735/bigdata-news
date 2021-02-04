@@ -1,2 +1,3 @@
 /news/.env
 /news/venv
+/news/data.json
