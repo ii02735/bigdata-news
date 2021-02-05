@@ -1,9 +1,16 @@
 #!/bin/sh
 # script executed after spark-master serivce created by docker-compose (service's entrypoint)
-cd /home/jovyan/work/
+cd /home/jovyan/work
+# The streamlit dependency WON'T be installed by docker
+# If you try to install it, it will fails and show the following message :
+# RuntimeError: Broken toolchain: cannot link a simple C program
+# It is due to the numpy library that is not likely compatible with this Linux distribution
+sed "s/streamlit//g" requirements.txt > requirements_docker.txt
 # install dependencies (required for cron job + notebook)
-
-pip3 install -r requirements.txt
+echo "dependency installation from requirements_docker.txt"
+pip3 install -r requirements_docker.txt
+# This temporary file is no longer needed after the pip installation
+rm requirements_docker.txt
 
 # enable cron daemon
 /usr/sbin/crond
