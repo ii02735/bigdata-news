@@ -3,3 +3,4 @@ python-dotenv
 pyspark
 pymongo[tls]
 python-crontab
+streamlit
