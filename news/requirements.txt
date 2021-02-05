@@ -1,3 +1,5 @@
 currentsapi
 python-dotenv
 pyspark
+pymongo[tls]
+python-crontab
