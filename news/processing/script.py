@@ -2,8 +2,7 @@
 
 from currentsapi import CurrentsAPI
 from dotenv import load_dotenv
-from pyspark.sql import SparkSession, SQLContext
-from pyspark import SparkContext
+from pyspark.sql import SparkSession
 from pymongo import MongoClient
 from sys import argv # read input arguments (if script is called by CRON for example)
 from datetime import datetime

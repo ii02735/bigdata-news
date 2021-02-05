@@ -1,7 +1,6 @@
 import streamlit as st
 import os
 from dotenv import load_dotenv
-from PIL import Image
 from pyspark.sql import SparkSession
 
 load_dotenv()
