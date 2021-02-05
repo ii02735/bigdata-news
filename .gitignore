@@ -1,3 +1,6 @@
 /news/.env
 /news/venv
+/news/env
+/news/processing/__pycache__/
+/news/processing/*.pyc
 /news/data.json
