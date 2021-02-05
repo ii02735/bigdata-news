@@ -72,10 +72,10 @@ va nous permettre d'installer tout ce qui est nécessaire à ce projet.
 Cette étape **n'est nécessaire que si** vous souhaitez éditer notre projet, ou démarrer notre IHM Streamlit.
 
 Il faut exécuter la commande suivante dans le dossier `news` (de préférence sous un virtualenv) :
+
 `pip install -r requirements.txt`
 
 ### Démarrer Streamlit
-
 
 Se rendre dans le dossier `news` puis exécuter la commande suivante :
 
