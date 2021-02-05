@@ -11,6 +11,8 @@ services:
     environment:
        - SPARK_LOCAL_IP=spark-master
        - PYSPARK_PYTHON=/usr/bin/python3
+    entrypoint: #entrypoint rewritten in order to launch cron job daemon BEFORE spark-master's original entrypoint
+       - /home/jovyan/work/docker-entrypoint.sh
     
   spark-worker:
     image: bde2020/spark-worker:3.0.1-hadoop3.2
@@ -35,8 +37,9 @@ services:
       - ./news:/home/jovyan/work
     environment:
       - PYSPARK_PYTHON=/usr/bin/python3
-      - PYSPARK_DRIVER_PYTHON=ipython3
-
+      - PYSPARK_DRIVER_PYTHON=ipython
+      - PACKAGES="org.mongodb.spark:mongo-spark-connector_2.12:3.0.1" #add mongodb connector for pyspark's notebook
+    
   mongo:
     image: mongo
     container_name: news_mongo
