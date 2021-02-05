@@ -55,19 +55,27 @@ La stack Docker, gérée par **docker-compose** contient les services suivant :
 - `pyspark-notebook` : un jupyter notebook contenant des dépendances de `pyspark`
 - `mongo` : un serveur de base de données Mongo    
 
-Pour pouvoir démarrer cette stack : `docker-compose up`   
+Pour pouvoir démarrer cette stack : `docker-compose up -d` 
+
+Après démarrage, le service `psyspark-notebook` est accessible
+sur le port `8888` de votre machine.
+
+Afin que vous puissiez accéder au notebook correctement, vous
+devrez avoir en votre possession le **token d'accès**.
+Vous pouvez le retrouver en saisissant `docker-compose logs pyspark-notebook`.
+Dans les logs, trouvez la chaîne de caractère suivante `?token=`, le token se à la suite de cette dernière.
 
 ### Installation des dépendances
 [pip](https://pypi.python.org/pypi/pip) est le gestionnaire de dépendances qui
 va nous permettre d'installer tout ce qui est nécessaire à ce projet.
 
-Si vous souhaitez utiliser le notebook, il vous sera nécessaire de :
+Cette étape **n'est nécessaire que si** vous souhaitez éditer notre projet, ou démarrer notre IHM Streamlit.
 
-- Vous rendre dans le dossier `news`
-- Exécuter la commande suivante : `pip3 install -r requirements.txt` ou `python3 -m pip install -r requirements.txt`
-
+Il faut exécuter la commande suivante dans le dossier `news` (de préférence sous un virtualenv) :
+`pip install -r requirements.txt`
 
 ### Démarrer Streamlit
+
 
 Se rendre dans le dossier `news` puis exécuter la commande suivante :
 
