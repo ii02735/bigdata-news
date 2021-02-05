@@ -14,8 +14,6 @@ import json
 
 load_dotenv()
 
-MONGO_URL = os.getenv('MONGO_HOST')+os.getenv('MONGO_DB')
-
 # API CONNECTION
 api = CurrentsAPI(api_key=os.getenv('API_KEY'))
 news = api.latest_news()    # get all data
@@ -31,8 +29,8 @@ spark = (
     SparkSession
     .builder
     .appName("news_data_app") \
-    .config("spark.mongodb.input.uri", MONGO_URL) 
-    .config("spark.mongodb.output.uri", MONGO_URL) 
+    .config("spark.mongodb.input.uri", os.getenv('MONGO_URL')) 
+    .config("spark.mongodb.output.uri", os.getenv('MONGO_URL')) 
     .config("spark.mongodb.output.collection", 'data') 
     .getOrCreate()
 )
@@ -42,16 +40,16 @@ df = df.withColumn("published", udf.transform_timestamp_in_date("published"))
 df = df.withColumn("origin", udf.url_to_origin("url"))
 df = df.withColumn("description", udf.delete_unicode_char("description"))
 
-df.write.format("com.mongodb.spark.sql.DefaultSource").mode("append").save()
+df.write.format("mongo").mode("append").save()
 
 # write log after execution
 
-mongo_client = MongoClient(os.getenv('MONGO_HOST'))
-db = mongo_client[os.getenv('MONGO_DB')]
+mongo_client = MongoClient(os.getenv('MONGO_URL'))
+db = mongo_client.news
 logs = db.logs
 log_record = { 'execution_time': datetime.utcnow() }
 
-if argv[1] == 'cron':
+if len(argv) > 1 and argv[1] == 'cron':
     log_record['cron'] = True
 else:
     log_record['cron'] = False
